@@ -2,50 +2,56 @@ package hexlet.code;
 
 import java.util.Random;
 import java.util.Scanner;
-
-public class Even {
-
+public class GCD {
     public static void main(String[] args) {
-        playEvenGame();
+        greatCD();
     }
 
-    public static boolean isEven(int number) {
-        return number % 2 == 0;
+    public static int gcd(int number, int number2) {
+        while (number2 != 0) {
+            int idk = number2;
+            number2 = number % number2;
+            number = idk;
+        }
+        return number;
+
     }
 
-    public static void playEvenGame() {
+    public static void greatCD() {
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
 
-
         System.out.println("Welcome to the Brain Games!");
-        System.out.print("May I have your name? ");
+        System.out.println("May I have your name? ");
         String name = scanner.nextLine();
         System.out.println("Hello, " + name + "!");
-        System.out.println("Answer 'yes' if the number is even, otherwise answer 'no'.");
+        System.out.println("Find the greatest common divisor of given numbers.");
 
         int correctAnswersNeeded = 3;
         int correctAnswers = 0;
 
         while (correctAnswers < correctAnswersNeeded) {
             int number = random.nextInt(100) + 1;
-            System.out.println("Question: " + number);
+            int number2 = random.nextInt(50) + 1;
+            int calcGCD = gcd(number, number2);
+            System.out.println("Question: " + number + " " + number2);
             System.out.print("Your answer: ");
-            String userAnswer = scanner.nextLine().toLowerCase();
+            int userAnswer = scanner.nextInt();
 
-            String correctAnswer = isEven(number) ? "yes" : "no";
-            if (!userAnswer.equals(correctAnswer)) {
-                System.out.println("'" + userAnswer + "' is wrong answer ;(. Correct answer was '" + correctAnswer + "'.");
+            if (userAnswer != calcGCD) {
+                System.out.println("'" + userAnswer + "'" + "is wrong answer ;(. Correct answer was " + "'" + calcGCD + "'.");
                 System.out.println("Let's try again, " + name + "!");
                 return;
             }
-
             System.out.println("Correct!");
             correctAnswers++;
         }
 
+
         System.out.println("Congratulations, " + name + "!");
         scanner.close();
+
     }
 }
+
 
